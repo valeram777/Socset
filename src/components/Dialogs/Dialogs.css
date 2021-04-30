@@ -1,0 +1,11 @@
+.dialogs {
+    display: flex;
+    
+    background-color: beige;;
+}
+.messages{
+    margin-left: 50px;
+}
+.message .activemassage{
+color: gold;
+}

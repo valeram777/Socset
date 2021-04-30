@@ -1,0 +1,35 @@
+.Users {
+    
+    background-color: beige;
+    
+}
+.foto {
+    height: 70px;
+    width: 70px;
+}
+.Users_columns{
+    display: flex;
+}
+.Users_foto{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+.Users_column{
+    display: flex;
+}
+.Users_column-left{
+    margin-left: 10px;
+    margin-right: 20px;
+}
+.pagination{
+    display: flex;
+}
+.pageHover:hover{
+    color:blue;
+    cursor: pointer;
+}
+.preloader {
+    width: 50px;
+height: 50;
+}
