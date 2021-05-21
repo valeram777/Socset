@@ -13,6 +13,11 @@ export let getStatusAC = (status) => {
         type: 'GET-STATUS', status
     }
 }
+export let setPhotoAc = (photo) =>{
+    return {
+        type: 'SETPHOTO', photo
+    }
+}
 let init = {
     PostData:[ {id: 1, message: "Привет!"},
     {id: 1, message:"Как житуха?"},
@@ -39,32 +44,39 @@ newState = {...state, PostData: [...state.PostData, p], newText: ""}//state.Post
       }else if (action.type === 'GET-STATUS'){
         newState = {...state, status: action.status}
         return newState
+      }else if(action.type === 'SETPHOTO'){
+          newState = {...state, userProfile:{...state.userProfile, photos:action.photo}}
+          return newState
       }
       return state
 }
 export const fProfile = (userId) =>{
    // let userId = `123000`;
-return (dispatch) => {
-    Api.Profile(userId)
-    .then(res=>{
-        dispatch(updateProfileAC(res.data))
-    })
-          
+return async (dispatch) => {
+    let res = await Api.Profile(userId)
+ dispatch(updateProfileAC(res.data))
 }
 
 }
+
 export const getStatusApi = (userId) => {
-    return (dispatch) => {
-        Api.GetStatus(userId)
-        .then (res=>{
-            dispatch(getStatusAC(res.data));
-            
-        })
+    return async (dispatch) => {
+        let res = await Api.GetStatus(userId);
+            dispatch(getStatusAC(res.data));  
     }
 }
 export const updateStatus = (status) => {
-    return (dispatch) => {
-        Api.PostStatus(status)
+    return async (dispatch) => {
+       let res = await Api.PostStatus(status)
+    }
+}
+export const setPhoto = (photo) => {
+    return async (dispath) =>{
+        let res = await Api.savePhoto(photo);
+        if (res.data.resultCode === 0){
+            dispath(setPhotoAc(res.data.data.photos))
+        }
+        
     }
 }
 export default profileReducer

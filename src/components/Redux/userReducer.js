@@ -11,12 +11,14 @@ const userReducer =(state = init, action) =>{
     
 let newState;
 
-if (action.type === 'FOLLOW') { console.log('1123212321')
-    newState = {...state, Users: state.Users.map(u=>{if (u.id === action.userId){return {...u, followed: false}}})}
-    return newState
-}else if (action.type === 'UNFOLLOW') {
-    newState = {...state, Users: state.Users.map(u=>{if (u.id === action.userId){return {...u, followed: true}}return u})}
-    return newState
+
+  if (action.type === 'FOLLOW')  {
+    newState = {...state, Users: state.Users.map(u => {if (u.id === action.userId){return {...u, followed: true}}return u})}
+    return newState;
+}else if (action.type === 'UNFOLLOW')  {
+    newState = {...state, Users: state.Users.map(u => {if (u.id === action.userId){return {...u, followed: false}}return u})}
+    
+    return newState;
 }else if (action.type === 'SETUSERS') {
     newState = {...state, Users: action.users}
     return newState;
@@ -51,12 +53,12 @@ export let toggleFatchingAc = (isFetching) => {
     return{type:'FETCHING', isFetching}
 }
 export const getUsers = () => {
-        return (dispatch) => {
+        return async (dispatch) => {
             dispatch(toggleFatchingAc (true));
-          Api.getUsers().then(res =>{
+          let res = await Api.getUsers();
           dispatch(toggleFatchingAc (false));
           dispatch(setUsersAC(res.data.items)); 
-          dispatch(setTotalPageAC(res.data.totalCount))})
+          dispatch(setTotalPageAC(res.data.totalCount))
         }  
 }
 export default userReducer

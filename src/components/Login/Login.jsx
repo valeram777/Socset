@@ -15,7 +15,10 @@ const Login =(props) => {
     <form onSubmit={props.handleSubmit}>
     <div><Field name={"email"} placeholder={"Логин"} component={Input} validate = {[recuiared, lenght10]}/></div>
     <div><Field name={"password"} placeholder={"Пароль"} component={Input} type="password" validate = {[recuiared, lenght10]}/></div>
+   
     <div><Field name={"rememberme"} component={'input'} type="checkbox"/></div>
+    <div>{props.captchaUrl && <img src={props.captchaUrl}  alt='captcha'/>}</div>
+    {props.captchaUrl && <div><Field name={"captcha"} placeholder={"Captcha"}  component={Input} type="text"/></div>}
     <div>{props.error && <div className="AnyError">{props.error}</div>}</div>
     <div><button>Submit</button></div>
     </form>
@@ -24,7 +27,8 @@ const Login =(props) => {
 const LoginResux = reduxForm({form: 'login'})(Login)
 const LoginForm = (props) => {
     const MySubmit =(data) => {
-        props.LoginPost(data.email, data.password, data.rememberMe);
+
+        props.LoginPost(data.email, data.password, data.rememberMe, data.captcha );
         Api.Header().then(res=>{
             if (res.data.data === 0) {
                 <Redirect to = '/profile' />
@@ -37,10 +41,11 @@ const LoginForm = (props) => {
     return (
         <div className="item">
         <h1>LOGIN</h1>
-        <LoginResux onSubmit={MySubmit}/>
+        <LoginResux onSubmit={MySubmit} captchaUrl={props.captchaUrl}/>
         </div>)
 }
 const mapToProps = (state) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    captchaUrl: state.auth.captchaUrl
 })
 export default connect (mapToProps, {LoginPost})(LoginForm)

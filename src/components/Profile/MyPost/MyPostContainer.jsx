@@ -24,8 +24,8 @@ return (
 let mapToState = (state)=> {
   
     return {
-        profilePage: ProfilePage(state),//state.profilePage,
-        newText: NewText(state)  // state.profilePage.newText
+        profilePage: ProfilePage(state),
+        newText: NewText(state) 
     } 
 }
 let dispatchToPost = (dispatch)=> {

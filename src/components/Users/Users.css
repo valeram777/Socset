@@ -27,9 +27,19 @@
 }
 .pageHover:hover{
     color:blue;
+    background-color: aqua;
     cursor: pointer;
 }
 .preloader {
     width: 50px;
 height: 50;
+}
+.pageRomb {
+    margin-left: 15px;
+    padding: auto;
+    width: 37px;
+    height: 32px;
+    border:1px solid black ;
+    border-radius: 20px ;
+    text-align: center;
 }

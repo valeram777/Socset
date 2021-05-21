@@ -13,3 +13,10 @@ export const Status = (state) => {
 export const UpdateStatus = (state) => {
     return state.updateStatus
 }
+export const AuthId = (state) => {
+    return state.auth.id
+}
+export const SetPhoto = (state) => {
+  
+    return state.setPhoto
+}

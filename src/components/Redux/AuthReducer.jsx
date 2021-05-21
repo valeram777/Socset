@@ -4,7 +4,8 @@ let init ={
     id: null,
     email:null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    captchaUrl: null
 }
 
 
@@ -15,14 +16,23 @@ const AuthReducer = (state = init, action) => {
         newState = {
             ...state, 
             ...action.data, 
-            isAuth: action.data.isAuth
+            isAuth: action.data.isAuth,
+            id: action.data.id
         }
         return newState;
+    }else if (action.type === 'SETCAPTCHA'){
+        newState = {
+            ...state,
+            ...action.data,
+            captchaUrl: action.data.captchaUrl
+        }
+        return newState
     }
     return state
 
 }
 export let setLogin =(id, email, login, isAuth) => { return {type: 'SETLOGIN', data: {id, email, login, isAuth}}}
+const setCaptcha = (captchaUrl) => {return {type: 'SETCAPTCHA', data: {captchaUrl}}}
 //export const setLog = () => (dispatch) => {
   //  Api.Header()
   //  .then(res =>{
@@ -35,33 +45,32 @@ export let setLogin =(id, email, login, isAuth) => { return {type: 'SETLOGIN', d
    
   //  }
 //}
-export const LoginPost = (email, password, rememberMe)  => (dispatch) => {
-    dispatch(stopSubmit("login", {_error:"Какая-то ошибка"}))
-    
-        Api.Login(email, password, rememberMe)
-.then(res =>{
+export const LoginPost = (email, password, rememberMe, captcha)  => async (dispatch) => {
+   // dispatch(stopSubmit("login", {_error:"Какая-то ошибка"}))
+       let res =  await Api.Login(email, password, rememberMe,captcha)
     if (res.data.resultCode === 0){
-
-    
         dispatch (setLogin(res.data.data.userId, email, email, true))
     }else {
+        if(res.data.resultCode === 10){
+            dispatch(getCaptchaUrl())
+        }
         let message = res.data.messages[0]
         dispatch(stopSubmit("login", {_error:message}))
-    }
-    
-})
-    
-
+    } 
 }
 export const logout = () => {
-    return (dispatch) => {
-        Api.LogOut()
-        .then (res=> {
+    return async (dispatch) => {
+        let res = await Api.LogOut()
             if (res.data.resultCode === 0){
-                dispatch (setLogin(null, null, null, null, false))  
+                dispatch (setLogin(null, null, null, false))  
             }
-        })
     }
 }
-
+export const getCaptchaUrl = () => {
+    return async (dispatch) => {
+        let res = await Api.getCaptcha()
+            dispatch(setCaptcha(res.data.url))
+        
+    }
+}
 export default AuthReducer

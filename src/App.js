@@ -9,7 +9,7 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login'
 const App = () => {
   
-  console.log()
+  //console.log()
   return (
     
     <div className="App">

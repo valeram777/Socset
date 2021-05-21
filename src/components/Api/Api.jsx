@@ -32,11 +32,23 @@ export const Api = {
     PostStatus (status){
         return instance.put(`profile/status`, {status})
     },
-    Login (email, password, rememberMe = false)
+    Login (email, password, rememberMe = false,captcha="")
     {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
     },
     LogOut () {
         return instance.delete(`auth/login`)
+    },
+    savePhoto (photo){
+        const formData = new FormData();
+        formData.append("image", photo)
+        return instance.put(`profile/photo`,formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+    getCaptcha (){
+        return instance.get(`security/get-captcha-url`)
     }
 }

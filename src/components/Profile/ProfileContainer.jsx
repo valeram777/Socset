@@ -4,41 +4,63 @@ import preloader from './../Img/Preloader.gif'
 //import * as axios from 'axios'
 import Profile from './Profile'
 //import { toggleFatchingAc} from './../Redux/userReducer'
-import {fProfile, getStatusApi,updateStatus } from './../Redux/ProfileReducer'
-import { Redirect, withRouter } from 'react-router-dom'
-import { Auth, UserProfile, TProfile, Status,  UpdateStatus } from '../Redux/ProfileSelector'
+import {fProfile, getStatusApi,updateStatus, setPhoto } from './../Redux/ProfileReducer'
+import {  withRouter } from 'react-router-dom'
+import { Auth, UserProfile, TProfile, Status,  UpdateStatus, AuthId, SetPhoto } from '../Redux/ProfileSelector'
+import {authHocPro} from './../Hoc/authHoc'
 //import { Api } from './../Api/Api'
 class ProfileContainer extends React.Component {
-
-    componentDidMount () {
-        let  userId = this.props.match.params.userId
-        
+updateprofile = ()=>{
+    let  userId = this.props.match.params.userId
+   
         if (userId === 0){
-            userId = 13147
+            userId = this.props.authId
         }
      this.props.fProfile(userId);
      this.props.getStatusApi(userId)
+}
+    componentDidMount () {
+        this.updateprofile();
+    
     }
+    componentDidUpdate(prevProps, prevState) {
+        
+       if (this.props.match.params.userId !== prevProps.match.params.userId){
+      //  let  userId = this.props.match.params.userId
+      this.updateprofile();
+       // if (userId === 0){
+        //    userId = this.props.authId
+       // }
+     //this.props.fProfile(userId);
+     //this.props.getStatusApi(userId)
+       }
+    
+    }
+
+   
     render () {
        
       if (!this.props.userProfile){ 
           return <img src =  {preloader} alt="preloader"/>
       }else{
-        if (!this.props.isAuth) return <Redirect to = '/login' />
+        
         return (   
-            <Profile {...this.props} userProfile = {this.props.userProfile}/>
+            <Profile {...this.props} userProfile = {this.props.userProfile} setPhoto = {this.props.setPhoto}/>
         )}
     }
 }
 
+let AuthComplete = authHocPro(ProfileContainer)
 let mapToProps = (state) => ({
-    
-    isAuth: Auth(state),//state.auth.isAuth,
-    userProfile: UserProfile(state),//state.profilePage.userProfile,
-    fProfile: TProfile(state),//state.fProfile,
-    status: Status(state),//state.profilePage.status,
-    updateStatus: UpdateStatus(state)//state.updateStatus
+   
+    isAuth: Auth(state),
+    userProfile: UserProfile(state),
+    fProfile: TProfile(state),
+    status: Status(state),
+    updateStatus: UpdateStatus(state),
+    authId: AuthId(state),
+    setPhoto: SetPhoto(state)
 });
 
-let withLink = withRouter(ProfileContainer)
-export default connect(mapToProps,{fProfile, getStatusApi, updateStatus} )(withLink)//updateProfileAC}
+let withLink = withRouter(AuthComplete)
+export default connect(mapToProps,{fProfile, getStatusApi, updateStatus, setPhoto} )(withLink)//updateProfileAC}

@@ -11,15 +11,15 @@ class HeaderContainer extends React.Component {
 
     componentDidMount () {
         // this.props.toggleFatchingAc (true);
-       
-      
             Api.Header()
             .then(res =>{
           //  this.props.toggleFatchingAc (false);
-           
+    
             if (res.data.resultCode === 0){
+             
                 let  {email, id, login} = res.data.data  
-                this.props.setLogin(email, id, login, true) 
+     
+                this.props.setLogin( id, email,login, true) 
             }
             }
       )}
@@ -29,7 +29,7 @@ class HeaderContainer extends React.Component {
       } 
 }
 let mapToState = (state) => ({
-    login: Login(state), //state.auth.login,
-    isAuth: Auth(state)//state.auth.isAuth
+    login: Login(state), 
+    isAuth: Auth(state)
 })
 export default connect(mapToState,{setLogin, toggleFatchingAc, logout})(HeaderContainer)

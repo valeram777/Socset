@@ -28,7 +28,7 @@ return (
 
 }
  
-const lenght10 = lenght(5)
+const lenght10 = lenght(15)
 const FormPost = (props)=> {
   return (
       <form onSubmit={props.handleSubmit}>
