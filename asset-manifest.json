@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/valeram777/Socset/static/css/main.8d05ad80.chunk.css",
+    "main.js": "/valeram777/Socset/static/js/main.4365b6c0.chunk.js",
+    "main.js.map": "/valeram777/Socset/static/js/main.4365b6c0.chunk.js.map",
+    "runtime-main.js": "/valeram777/Socset/static/js/runtime-main.afcedfe2.js",
+    "runtime-main.js.map": "/valeram777/Socset/static/js/runtime-main.afcedfe2.js.map",
+    "static/js/2.f85b51b9.chunk.js": "/valeram777/Socset/static/js/2.f85b51b9.chunk.js",
+    "static/js/2.f85b51b9.chunk.js.map": "/valeram777/Socset/static/js/2.f85b51b9.chunk.js.map",
+    "index.html": "/valeram777/Socset/index.html",
+    "static/css/main.8d05ad80.chunk.css.map": "/valeram777/Socset/static/css/main.8d05ad80.chunk.css.map",
+    "static/js/2.f85b51b9.chunk.js.LICENSE.txt": "/valeram777/Socset/static/js/2.f85b51b9.chunk.js.LICENSE.txt",
+    "static/media/123.400b6995.jpg": "/valeram777/Socset/static/media/123.400b6995.jpg",
+    "static/media/Preloader.b2a8fa3d.gif": "/valeram777/Socset/static/media/Preloader.b2a8fa3d.gif"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.afcedfe2.js",
+    "static/js/2.f85b51b9.chunk.js",
+    "static/css/main.8d05ad80.chunk.css",
+    "static/js/main.4365b6c0.chunk.js"
+  ]
+}
