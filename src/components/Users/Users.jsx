@@ -7,10 +7,11 @@ import preloader from './../Img/Preloader.gif'
 import { NavLink } from 'react-router-dom'
 import { Api } from '../Api/Api'
 import Paginator from './Paginator'
+
 class Users extends React.Component {
   render () {
-        
-    return <Paginator {...this.props}/>    // props = {this.props}
+ 
+    return  <Paginator {...this.props}/>   // props = {this.props}
   }
  //render () {
   /*let pagesTotal = Math.ceil(this.props.totalUsers/this.props.pageSize);

@@ -7,9 +7,11 @@ withCredentials: true
 
 })
 
+
 export const Api = {
-    getUsers (page =1, size = 10) {
-        return instance.get(`users?page=${page}&count=${size}`)
+    getUsers (page =1, size = 10, term =''){
+       // console.log(term)//(`users?page=${page}&count=${size}&term=${term.term}&isFrends=${term.isFrends}`)
+        return instance.get(`users?page=${page}&count=${size}&term=${term.term}&friend=${term.isFrends}`)
     },
     usersFollowPost (id){
         return instance.post(`follow/${id}`)

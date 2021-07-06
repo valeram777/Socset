@@ -55,6 +55,7 @@ export const fProfile = (userId) =>{
 return async (dispatch) => {
     let res = await Api.Profile(userId)
  dispatch(updateProfileAC(res.data))
+ 
 }
 
 }

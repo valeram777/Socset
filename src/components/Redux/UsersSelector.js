@@ -22,3 +22,18 @@ export const GetUsers = (state) => {
 export const ISAuth = (state) => {
     return state.auth.isAuth
 }
+export const Term = (state) => {
+    
+    return state.userPage.term
+}
+export const IsFrends = (state) => {
+    return state.userPage.isFrends
+}
+
+
+export const SelectorState = (state) => {
+    return state
+}
+export const FilterState = (state) => {
+    return state.userPage.filter
+}

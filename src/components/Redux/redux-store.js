@@ -5,11 +5,13 @@ import userReducer from './userReducer'
 import authReducer from './AuthReducer'
 import thunkMiddle from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
+import ChatReducer from './ChatReducer'
 let reducer = combineReducers({
     profilePage: profileReducer,
     messagesPage: dialogReducer,
     userPage: userReducer,
     auth: authReducer,
+    chat: ChatReducer,
     form: formReducer
 })
  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -2,9 +2,14 @@ import {Api} from './../Api/Api'
 let init = {
     Users:[ ],
     pageSize: 10,
-    totalUsers: 10,
+    totalUsers: 12000,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    filter: {
+        term: "",
+        isFrends: ""
+    }
+   
 }
 
 const userReducer =(state = init, action) =>{
@@ -31,6 +36,9 @@ return newState
 }else if (action.type === 'FETCHING'){
     newState = {...state, isFetching: action.isFetching}
     return newState
+}else if (action.type === 'FILTER'){
+    newState = {...state, filter: {...action.filter}}
+    return newState
 }
 return state
 }
@@ -52,12 +60,17 @@ export let serPageAC = (page) =>{
 export let toggleFatchingAc = (isFetching) => {
     return{type:'FETCHING', isFetching}
 }
-export const getUsers = () => {
+export let filterAC = (filter) => {
+    return {type:'FILTER', filter}
+}
+
+export const getUsers = (page, size, term) => {
         return async (dispatch) => {
             dispatch(toggleFatchingAc (true));
-          let res = await Api.getUsers();
-          dispatch(toggleFatchingAc (false));
+          let res = await Api.getUsers(page, size, term);
+         // console.log(res)
           dispatch(setUsersAC(res.data.items)); 
+          dispatch(toggleFatchingAc (false));
           dispatch(setTotalPageAC(res.data.totalCount))
         }  
 }
